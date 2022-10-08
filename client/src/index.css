@@ -154,3 +154,14 @@
   font-size: 13px;
   font-style: italic;
 }
+.chatListArea{
+  display: flex;
+  flex-direction: column-reverse;
+
+}
+
+.chatArea section{
+  display: flex;;
+  flex-direction: column-reverse;
+  
+}

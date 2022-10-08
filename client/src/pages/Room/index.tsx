@@ -13,7 +13,7 @@ const Room = ({ socket }: { socket: any }) => {
   const [userData, setUserData] = useState('');
   const [messages, setMessages] = useState<IChatData[]>([]);
   const [typingStatus, setTypingStatus] = useState('');
-  const lastMessageRef = useRef(null);
+  const lastMessageRef = useRef<null | HTMLDivElement>(null);
 
   useEffect(() => {
     axios
@@ -46,13 +46,13 @@ const Room = ({ socket }: { socket: any }) => {
   }, [socket]);
 
   const combineData = chatData.concat(messages);
-  const chatSections = makeSection(combineData ? combineData : []);
-  console.log(chatSections);
+  const chatSections = makeSection(combineData ? combineData.reverse() : []);
 
-  // useEffect(() => {
-  //   // 👇️ scroll to bottom every time messages change
-  //   lastMessageRef.current?.scrollIntoView({ behavior: 'smooth' });
-  // }, [messages]);
+  useEffect(() => {
+    lastMessageRef.current?.scrollIntoView({
+      behavior: 'smooth',
+    });
+  }, [messages]);
 
   if (!chatData || !userData) {
     return null;
@@ -69,7 +69,10 @@ const Room = ({ socket }: { socket: any }) => {
         </div>
       </div>
       <div className="chatArea">
-        <ChatList messages={chatSections} typingStatus={typingStatus} lastMessageRef={lastMessageRef} />
+        <div className="chatListArea">
+          <ChatList messages={chatSections} typingStatus={typingStatus} lastMessageRef={lastMessageRef} />
+        </div>
+
         <ChatInput socket={socket} />
       </div>
     </div>

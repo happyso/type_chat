@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 
 interface Props {
-  messages: { [key: string]: any };
+  messages: { [key: string]: any[] };
   typingStatus: ReactFragment;
   lastMessageRef: LegacyRef<HTMLDivElement> | undefined;
 }
@@ -20,7 +20,6 @@ const ChatList: FC<Props> = ({ messages, typingStatus, lastMessageRef }) => {
             {chats &&
               chats.map((message: any, index: number) => {
                 const itemTime = dayjs(message.createdAt).format('A hh:mm');
-
                 if (message.name === localStorage.getItem('userName')) {
                   if (receiverTime) {
                     if (receiverTime !== itemTime) {
@@ -32,7 +31,6 @@ const ChatList: FC<Props> = ({ messages, typingStatus, lastMessageRef }) => {
                   } else {
                     receiverTime = itemTime;
                   }
-
                   return (
                     <div className="message__chats" key={index}>
                       <div className="message__sender">

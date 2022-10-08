@@ -1,5 +1,4 @@
 import React, { useState, useCallback } from 'react';
-import 'dayjs/locale/ko';
 const ChatInput = ({ socket }: any) => {
   const [message, setMessage] = useState('');
   const handleTyping = () => socket.emit('typing', `${localStorage.getItem('userName')} is typing`);

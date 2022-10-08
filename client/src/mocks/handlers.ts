@@ -1,10 +1,6 @@
 import { rest } from 'msw';
 
 export const handlers = [
-  // Handles a POST /login request
-  //   rest.post('/login', null),
-  // Handles a GET /user request
-
   rest.post('/api/room/msjang/chat', async (req, res, ctx) => {
     sessionStorage.setItem('chat', new Date().getTime().toString());
     return res(
@@ -18,11 +14,11 @@ export const handlers = [
       ctx.json([
         {
           id: 1,
-          imageUrls: '/assets/img-profile-1.png',
+          imageUrls: `${process.env.PUBLIC_URL}/img-profile-1.png`,
         },
         {
           id: 2,
-          imageUrls: '/assets/img-profile-3.png',
+          imageUrls: `${process.env.PUBLIC_URL}/img-profile-3.png`,
         },
       ]),
     );
@@ -34,7 +30,7 @@ export const handlers = [
       ctx.json([
         {
           id: 1,
-          imageUrls: '/assets/img-profile-1.png',
+          imageUrls: `${process.env.PUBLIC_URL}/img-profile-1.png`,
           content: '어딘데 출근 안하니, 죽고싶니?',
           SenderId: 'msjang',
           Sender: '장만월 사장님',
@@ -43,7 +39,7 @@ export const handlers = [
         },
         {
           id: 2,
-          imageUrls: '/assets/img-profile-3.png',
+          imageUrls: `${process.env.PUBLIC_URL}/img-profile-3.png`,
           content: '오시는 길에 와인 몇병만 사다주세요.',
           SenderId: 'mrshin',
           Sender: '신정근 바텐더',

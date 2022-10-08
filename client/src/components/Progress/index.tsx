@@ -6,7 +6,6 @@ export const Progress = ({ widthNumber }: { [key: string]: number }) => {
       <div
         style={{
           width: `${widthNumber}%`,
-          color: 'red',
         }}
         className="progress-bar"
         role="progressbar"

@@ -126,8 +126,13 @@ export const handlers = [
     return res(
       ctx.json({
         username,
-        firstName: 'John',
       }),
     );
+  }),
+
+  // 추가
+  rest.post('/api/room/images/msjang', async (req, res, ctx) => {
+    console.log(req.body);
+    return res(ctx.status(200));
   }),
 ];

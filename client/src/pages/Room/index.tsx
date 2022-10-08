@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { IChatData } from '@typings/db';
 import ChatList from '../../components/ChatList';
@@ -8,6 +8,7 @@ import makeSection from '../../utils/makeSection';
 import axios from 'axios';
 import Loading from '../../components/Loading';
 import Progress from '../../components/Progress';
+import PreviewImage from '../../components/PreviewImage';
 
 const Room = ({ socket }: { socket: any }) => {
   const { room_id } = useParams();
@@ -17,9 +18,18 @@ const Room = ({ socket }: { socket: any }) => {
   const [typingStatus, setTypingStatus] = useState('');
   const lastMessageRef = useRef<null | HTMLDivElement>(null);
   const [images, setImages] = useState<string[]>([]);
+  const [sendImages, setSendImages] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [widthNumber, setWidth] = useState(0);
+  const [imageMenu, setImageMenu] = useState(false);
 
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const onUploadImageButtonClick = useCallback(() => {
+    if (!inputRef.current) {
+      return;
+    }
+    inputRef.current.click();
+  }, []);
   useEffect(() => {
     axios
       .get(`/api/users/${room_id}`, { withCredentials: true })
@@ -63,62 +73,55 @@ const Room = ({ socket }: { socket: any }) => {
     return null;
   }
 
-  const testimageDb = [
-    {
-      id: 1,
-      imageUrls: `${process.env.PUBLIC_URL}/img-profile-1.png`,
-    },
-    {
-      id: 2,
-      imageUrls: `${process.env.PUBLIC_URL}/img-profile-3.png`,
-    },
-  ];
+  const onUploadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files!;
+    if (!files[0]) return;
 
-  const onUploadImageButtonClick = (e) => {
-    const files = e.target.src!;
-    const timer = 2000;
-    const intervalNum = 100;
-    const maxWidth = 100;
-    const calc = maxWidth / (timer / intervalNum);
-    let init = 0;
-
-    if (!files) return;
     const readAndPreview = (file: any) => {
-      setLoading(true);
-      if (/\.(jpe?g|png|gif)$/i.test(file)) {
-        setImages([...images, files]);
+      if (/\.(jpe?g|png|gif)$/i.test(file.name)) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          setImages((prev) => [...prev, reader.result as string]);
+          setImageMenu(true);
+        };
+        reader.readAsDataURL(file);
+      }
+    };
+    if (files) {
+      [].forEach.call(files, readAndPreview);
+    }
+  };
 
+  const onAddImage = (e) => {
+    const file = e.target.src;
+
+    axios
+      .post(`/api/room/images/${room_id}`, {
+        id: Math.random(),
+        imageUrl: file,
+      })
+      .then((response) => {
+        setSendImages([...sendImages, file]);
+        const timer = 2000;
+        const intervalNum = 100;
+        const maxWidth = 100;
+        const calc = maxWidth / (timer / intervalNum);
+        let init = 0;
         let interval = setInterval(() => {
           init = init + calc;
           setWidth(init);
         }, intervalNum);
+
         setTimeout(() => {
+          console.log(response.data);
           setLoading(false);
           clearInterval(interval);
-        }, timer);
-      }
-    };
-    if (files) {
-      readAndPreview(files);
-    }
-  };
-  /*
-   axios({
-      url: '/api/users/images/${user}',
-      method: 'POST',
-      data: formData,
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    })
-      .then(response => {
-        console.log(response.data);
+        }, 2000);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       });
-  }, []);
-   */
+  };
 
   return (
     <div className="container">
@@ -126,13 +129,31 @@ const Room = ({ socket }: { socket: any }) => {
         <h1>{userData}</h1>
         <Link to="/list">Back</Link>
         <div className="rightUtil">
-          <ul>
-            {testimageDb?.map((file: any, index: number) => (
-              <li key={index}>
-                <img src={file.imageUrls} alt="" onClick={onUploadImageButtonClick} />
-              </li>
-            ))}
-          </ul>
+          <div>
+            {imageMenu ? (
+              <button
+                onClick={() => {
+                  setImageMenu(false);
+                }}
+              >
+                이미지 닫기
+              </button>
+            ) : (
+              <>
+                <input
+                  type="file"
+                  multiple
+                  name="image"
+                  accept=".png, .jpg, jpeg"
+                  ref={inputRef}
+                  onChange={onUploadImage}
+                />
+                <button onClick={onUploadImageButtonClick}>이미지 파일 선택</button>
+              </>
+            )}
+          </div>
+          {imageMenu ? <PreviewImage images={images} onAddImage={onAddImage} /> : null}
+
           <button>검색</button>
         </div>
       </div>
@@ -142,21 +163,12 @@ const Room = ({ socket }: { socket: any }) => {
           <ChatList messages={chatSections} typingStatus={typingStatus} lastMessageRef={lastMessageRef} />
         </div>
 
-        {images &&
-          images?.map((file: any, index: number) => (
+        {sendImages &&
+          sendImages?.map((file: any, index: number) => (
             <li key={index}>
-              {loading ? (
-                <>
-                  <Loading />
-                </>
-              ) : null}
+              {loading ? <Loading /> : null}
               <img src={file} alt="preview-img" />
-
-              {loading ? (
-                <>
-                  <Progress widthNumber={widthNumber} />
-                </>
-              ) : null}
+              {loading ? <Progress widthNumber={widthNumber} /> : null}
             </li>
           ))}
 

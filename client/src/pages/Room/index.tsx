@@ -9,6 +9,8 @@ import axios from 'axios';
 import Loading from '../../components/Loading';
 import Progress from '../../components/Progress';
 import PreviewImage from '../../components/PreviewImage';
+import { H1 } from './styles';
+import { Header } from '../../pages/List/styles';
 
 const Room = ({ socket }: { socket: any }) => {
   const { room_id } = useParams();
@@ -124,8 +126,8 @@ const Room = ({ socket }: { socket: any }) => {
 
   return (
     <div className="container">
-      <div className="header">
-        <h1>{userData}</h1>
+      <Header>
+        <H1>{userData}</H1>
         <Link to="/list">Back</Link>
         <div className="rightUtil">
           <div>
@@ -155,7 +157,7 @@ const Room = ({ socket }: { socket: any }) => {
 
           <button>검색</button>
         </div>
-      </div>
+      </Header>
 
       <div className="chatArea">
         <div className="chatListArea">

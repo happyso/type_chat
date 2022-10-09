@@ -1,12 +1,10 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["ES2020", "DOM"],
+    "jsx": "react",
     "noImplicitAny": false,
+    
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -19,7 +17,6 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx",
     "paths": {
       "@hooks/*": ["./src/hooks/*"],
       "@components/*": ["./src/components/*"],
@@ -29,8 +26,12 @@
       "@typings/*": ["./src/typings/*"]
     }
   },
-  "include": [
-    "src"
-  ],
-  
+  "ts-node": {
+    "compilerOptions": {
+      "module": "commonjs",
+      "moduleResolution": "Node",
+      "target": "es5",
+      "esModuleInterop": true
+    }
+  }
 }

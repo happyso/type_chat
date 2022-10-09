@@ -1,4 +1,4 @@
-import React, { FC, LegacyRef, ReactFragment } from 'react';
+import React, { FC, LegacyRef } from 'react';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 import { IChatData } from '@typings/db';

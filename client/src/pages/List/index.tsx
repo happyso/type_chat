@@ -5,6 +5,8 @@ import axios from 'axios';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 
+import { Header } from './styles';
+
 dayjs.locale('ko');
 const userName = localStorage.getItem('userName');
 
@@ -31,18 +33,21 @@ const List = () => {
   }, []);
 
   return (
-    <div className="roomList">
-      {listData?.map((chatItem: IChatList) => (
-        <NavLink key={chatItem.id} to={`/room/${chatItem.SenderId}`}>
-          <div className="chat-img">
-            <img src={chatItem.imageUrls} alt={chatItem.SenderId} />
-          </div>
-          <span>{chatItem.content}</span>
-          <span>{getDate(chatItem.createdAt)}</span>
-          {chatItem.unreadChat && <span className="unreadCount">{chatItem.unreadChat}</span>}
-        </NavLink>
-      ))}
-    </div>
+    <>
+      <Header>채팅</Header>
+      <div className="roomList">
+        {listData?.map((chatItem: IChatList) => (
+          <NavLink key={chatItem.id} to={`/room/${chatItem.SenderId}`}>
+            <div className="chat-img">
+              <img src={chatItem.imageUrls} alt={chatItem.SenderId} />
+            </div>
+            <span>{chatItem.content}</span>
+            <span>{getDate(chatItem.createdAt)}</span>
+            {chatItem.unreadChat && <span className="unreadCount">{chatItem.unreadChat}</span>}
+          </NavLink>
+        ))}
+      </div>
+    </>
   );
 };
 

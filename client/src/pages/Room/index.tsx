@@ -14,9 +14,10 @@ const Room = ({ socket }: { socket: any }) => {
   const { room_id } = useParams();
   const [chatData, setChatData] = useState<IChatData[]>([]);
   const [userData, setUserData] = useState('');
+
   const [messages, setMessages] = useState<IChatData[]>([]);
-  const [typingStatus, setTypingStatus] = useState('');
   const lastMessageRef = useRef<null | HTMLDivElement>(null);
+
   const [images, setImages] = useState<string[]>([]);
   const [sendImages, setSendImages] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
@@ -56,10 +57,6 @@ const Room = ({ socket }: { socket: any }) => {
     socket.on('messageResponse', (data: any) => setMessages([...messages, data]));
   }, [socket, messages]);
 
-  useEffect(() => {
-    socket.on('typingResponse', (data: any) => setTypingStatus(data));
-  }, [socket]);
-
   const combineData = chatData.concat(messages);
   const chatSections = makeSection(combineData ? combineData.reverse() : []);
 
@@ -92,8 +89,13 @@ const Room = ({ socket }: { socket: any }) => {
     }
   };
 
-  const onAddImage = (e) => {
+  const onAddImage = (e: { target: { src: string } }) => {
     const file = e.target.src;
+    const timer = 2000;
+    const intervalNum = 100;
+    const maxWidth = 100;
+    const calc = maxWidth / (timer / intervalNum);
+    let init = 0;
 
     axios
       .post(`/api/room/images/${room_id}`, {
@@ -102,16 +104,13 @@ const Room = ({ socket }: { socket: any }) => {
       })
       .then((response) => {
         setSendImages([...sendImages, file]);
-        const timer = 2000;
-        const intervalNum = 100;
-        const maxWidth = 100;
-        const calc = maxWidth / (timer / intervalNum);
-        let init = 0;
+
         let interval = setInterval(() => {
           init = init + calc;
           setWidth(init);
         }, intervalNum);
 
+        //loading 인터렉션 확인용 딜레이추가
         setTimeout(() => {
           console.log(response.data);
           setLoading(false);
@@ -160,7 +159,7 @@ const Room = ({ socket }: { socket: any }) => {
 
       <div className="chatArea">
         <div className="chatListArea">
-          <ChatList messages={chatSections} typingStatus={typingStatus} lastMessageRef={lastMessageRef} />
+          <ChatList messages={chatSections} lastMessageRef={lastMessageRef} />
         </div>
 
         {sendImages &&

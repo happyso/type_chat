@@ -1,19 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { IChatList } from '@typings/db';
 import axios from 'axios';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 
 dayjs.locale('ko');
-interface IChatList {
-  id: number;
-  imageUrls: string;
-  content: string;
-  SenderId: string;
-  Sender: string;
-  createdAt: Date;
-  unreadChat: number;
-}
+const userName = localStorage.getItem('userName');
+
 const List = () => {
   const [listData, setListData] = useState<IChatList[]>();
   const getDate = (targetDate: string) => {
@@ -24,7 +18,7 @@ const List = () => {
       return dayjs(targetDate).format('A hh:mm');
     }
   };
-  const userName = localStorage.getItem('userName');
+
   useEffect(() => {
     axios
       .get(`/api/${userName}/list`, { withCredentials: true })
@@ -34,11 +28,11 @@ const List = () => {
       .catch((error) => {
         console.log(`Something Wrong: ${error}`);
       });
-  }, [userName]);
+  }, []);
 
   return (
     <div className="roomList">
-      {listData?.map((chatItem: any) => (
+      {listData?.map((chatItem: IChatList) => (
         <NavLink key={chatItem.id} to={`/room/${chatItem.SenderId}`}>
           <div className="chat-img">
             <img src={chatItem.imageUrls} alt={chatItem.SenderId} />

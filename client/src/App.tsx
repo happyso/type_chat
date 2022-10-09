@@ -27,17 +27,3 @@ const App = () => {
   );
 };
 export default App;
-
-//todo
-
-// list view router
-// room view router
-// list 전송한 메세지, 읽지 않은 메세지 갯수, 마시막메세지 , unreads
-// get api/list 채팅방 리스트 불러움
-// get api/room/:room_id/chat/ 해당 채팅방의 대화내용 가져옴
-// get api/user/:id 유저 정보 가져옴
-// get api/user/:id/images 보낸 이미지 가져옴..
-//
-//
-
-// init room localstorage에 기존 채팅내용 get 하기

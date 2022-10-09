@@ -4,7 +4,7 @@ const ChatInput = ({ socket }: any) => {
   const handleTyping = () => socket.emit('typing', `${localStorage.getItem('userName')} is typing`);
 
   const handleSendMessage = useCallback(
-    (e: any) => {
+    (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
 
       if (message.trim() && localStorage.getItem('userName')) {
@@ -13,7 +13,6 @@ const ChatInput = ({ socket }: any) => {
           content: message,
           name: localStorage.getItem('userName'),
           createdAt: new Date(),
-          socketID: socket.id,
         });
       }
       setMessage('');

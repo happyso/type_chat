@@ -19,3 +19,13 @@ export interface IImageData {
   id: number;
   imageUrls: string;
 }
+
+export interface IChatList {
+  id: number;
+  imageUrls: string;
+  content: string;
+  SenderId: string;
+  Sender: string;
+  createdAt: string;
+  unreadChat: number;
+}

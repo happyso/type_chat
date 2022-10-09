@@ -1,13 +1,13 @@
 import React, { FC, LegacyRef, ReactFragment } from 'react';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
+import { IChatData } from '@typings/db';
 
 interface Props {
-  messages: { [key: string]: any[] };
-  typingStatus: ReactFragment;
+  messages: { [key: string]: IChatData[] };
   lastMessageRef: LegacyRef<HTMLDivElement> | undefined;
 }
-const ChatList: FC<Props> = ({ messages, typingStatus, lastMessageRef }) => {
+const ChatList: FC<Props> = ({ messages, lastMessageRef }) => {
   return (
     <>
       {Object.entries(messages).map(([date, chats]) => {
@@ -67,9 +67,6 @@ const ChatList: FC<Props> = ({ messages, typingStatus, lastMessageRef }) => {
         );
       })}
 
-      <div className="message__status">
-        <p>{typingStatus}</p>
-      </div>
       <div ref={lastMessageRef} />
     </>
   );

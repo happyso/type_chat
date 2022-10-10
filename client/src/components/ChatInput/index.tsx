@@ -1,4 +1,6 @@
 import React, { useState, useCallback } from 'react';
+import { ReactComponent as Send } from '../../assets/img-send.svg';
+
 const ChatInput = ({ socket }: any) => {
   const [message, setMessage] = useState('');
   const handleTyping = () => socket.emit('typing', `${localStorage.getItem('userName')} is typing`);
@@ -20,7 +22,7 @@ const ChatInput = ({ socket }: any) => {
     [socket, message],
   );
   return (
-    <div className="chat__footer">
+    <div className="chat-footer">
       <form className="form" onSubmit={handleSendMessage}>
         <input
           type="text"
@@ -30,7 +32,9 @@ const ChatInput = ({ socket }: any) => {
           onChange={(e) => setMessage(e.target.value)}
           onKeyDown={handleTyping}
         />
-        <button className="sendBtn">SEND</button>
+        <button className="btn-send">
+          <Send />
+        </button>
       </form>
     </div>
   );

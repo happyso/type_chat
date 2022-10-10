@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { IChatList } from '@typings/db';
 import axios from 'axios';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
+import { ReactComponent as Menu } from '../../assets/img-menu.svg';
+import { ReactComponent as Mypage } from '../../assets/img-mypage.svg';
 
-import { Header } from './styles';
-
+import { Header, RoomList } from './styles';
 dayjs.locale('ko');
+
 const userName = localStorage.getItem('userName');
 
 const List = () => {
@@ -34,19 +36,30 @@ const List = () => {
 
   return (
     <>
-      <Header>채팅</Header>
-      <div className="roomList">
+      <Header>
+        <h1>채팅</h1>
+        <button className="btn-menu">
+          <Menu width="24" height="24" />
+        </button>
+        <Link to="#none" className="btn-mypage">
+          <Mypage />
+        </Link>
+      </Header>
+      <RoomList>
         {listData?.map((chatItem: IChatList) => (
           <NavLink key={chatItem.id} to={`/room/${chatItem.SenderId}`}>
             <div className="chat-img">
               <img src={chatItem.imageUrls} alt={chatItem.SenderId} />
             </div>
-            <span>{chatItem.content}</span>
-            <span>{getDate(chatItem.createdAt)}</span>
-            {chatItem.unreadChat && <span className="unreadCount">{chatItem.unreadChat}</span>}
+            <div className="chat-desc">
+              <strong>{chatItem.Sender}</strong>
+              <span>{chatItem.content}</span>
+              <span className="date">{getDate(chatItem.createdAt)}</span>
+              {chatItem.unreadChat && <span className="unreadCount">{chatItem.unreadChat}</span>}
+            </div>
           </NavLink>
         ))}
-      </div>
+      </RoomList>
     </>
   );
 };

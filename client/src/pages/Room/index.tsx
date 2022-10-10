@@ -9,8 +9,11 @@ import axios from 'axios';
 import Loading from '../../components/Loading';
 import Progress from '../../components/Progress';
 import PreviewImage from '../../components/PreviewImage';
-import { H1 } from './styles';
 import { Header } from '../../pages/List/styles';
+import { Util } from './styles';
+import { ReactComponent as Back } from '../../assets/img-back.svg';
+import { ReactComponent as Upload } from '../../assets/img-upload.svg';
+import { ReactComponent as Search } from '../../assets/img-search.svg';
 
 const Room = ({ socket }: { socket: any }) => {
   const { room_id } = useParams();
@@ -127,12 +130,15 @@ const Room = ({ socket }: { socket: any }) => {
   return (
     <div className="container">
       <Header>
-        <H1>{userData}</H1>
-        <Link to="/list">Back</Link>
-        <div className="rightUtil">
+        <h1>{userData}</h1>
+        <Link to="/list" className="btn-back">
+          <Back />
+        </Link>
+        <Util>
           <div>
             {imageMenu ? (
               <button
+                className="btn-close"
                 onClick={() => {
                   setImageMenu(false);
                 }}
@@ -149,14 +155,17 @@ const Room = ({ socket }: { socket: any }) => {
                   ref={inputRef}
                   onChange={onUploadImage}
                 />
-                <button onClick={onUploadImageButtonClick}>이미지 파일 선택</button>
+                <button className="btn-upload" onClick={onUploadImageButtonClick}>
+                  <Upload />
+                </button>
               </>
             )}
           </div>
           {imageMenu ? <PreviewImage images={images} onAddImage={onAddImage} /> : null}
-
-          <button>검색</button>
-        </div>
+          <Link to="#none" className="btn-search">
+            <Search />
+          </Link>
+        </Util>
       </Header>
 
       <div className="chatArea">

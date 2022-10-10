@@ -1,8 +1,8 @@
 import React from 'react';
-
+import { ProgressBar } from './styles';
 export const Progress = ({ widthNumber }: { [key: string]: number }) => {
   return (
-    <div className="progress">
+    <ProgressBar>
       <div
         style={{
           width: `${widthNumber}%`,
@@ -10,7 +10,7 @@ export const Progress = ({ widthNumber }: { [key: string]: number }) => {
         className="progress-bar"
         role="progressbar"
       ></div>
-    </div>
+    </ProgressBar>
   );
 };
 

@@ -4,6 +4,8 @@ export const Header = styled.div`
   padding: 10px 12px;
   background-color: var(--point-color);
   text-align: center;
+  position: relative;
+
   h1 {
     font-size: 17px;
     font-weight: bold;

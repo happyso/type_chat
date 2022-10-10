@@ -1,8 +1,9 @@
 import React, { FC, LegacyRef } from 'react';
 import dayjs from 'dayjs';
+
 import 'dayjs/locale/ko';
 import { IChatData } from '@typings/db';
-import { MonthLabel, MessageChats, DateNumber } from './styles';
+import { MonthLabel, MessageChats, DateNumber, ChatScroll } from './styles';
 interface Props {
   messages: { [key: string]: IChatData[] };
   lastMessageRef: LegacyRef<HTMLDivElement> | undefined;
@@ -10,7 +11,7 @@ interface Props {
 const ChatList: FC<Props> = ({ messages, lastMessageRef }) => {
   return (
     <>
-      <div className="chat-scroll">
+      <ChatScroll>
         <div className="inner">
           {Object.entries(messages).map(([date, chats]) => {
             let senderDisplay = true;
@@ -22,6 +23,7 @@ const ChatList: FC<Props> = ({ messages, lastMessageRef }) => {
                 {chats &&
                   chats.map((message: any, index: number) => {
                     const itemTime = dayjs(message.createdAt).format('A hh:mm');
+
                     if (message.name === localStorage.getItem('userName')) {
                       if (receiverTime) {
                         if (receiverTime !== itemTime) {
@@ -32,6 +34,16 @@ const ChatList: FC<Props> = ({ messages, lastMessageRef }) => {
                         }
                       } else {
                         receiverTime = itemTime;
+                      }
+                      if (message.isFile) {
+                        return (
+                          <MessageChats key={index} className="message-sender">
+                            <div className="message">
+                              <img src={message.content} />
+                            </div>
+                            <DateNumber>{receiverDisplay ? <span>{receiverTime}</span> : null}</DateNumber>
+                          </MessageChats>
+                        );
                       }
                       return (
                         <MessageChats key={index} className="message-sender">
@@ -73,7 +85,8 @@ const ChatList: FC<Props> = ({ messages, lastMessageRef }) => {
             );
           })}
         </div>
-      </div>
+      </ChatScroll>
+
       <div ref={lastMessageRef} />
     </>
   );

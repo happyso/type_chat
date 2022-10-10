@@ -1,5 +1,19 @@
 import styled from '@emotion/styled';
-
+export const ChatScroll = styled.div`
+  flex: 1 1;
+  display: flex;
+  flex-direction: column;
+  margin-top: auto;
+  height: 100%;
+  max-height: 100%;
+  .inner {
+    display: flex;
+    flex-direction: column-reverse;
+    height: auto;
+    max-height: 100%;
+    overflow-y: scroll;
+  }
+`;
 export const MonthLabel = styled.div`
   margin: 0 16px 0;
   position: relative;

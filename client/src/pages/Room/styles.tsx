@@ -1,5 +1,38 @@
 import styled from '@emotion/styled';
 
+export const ChatBox = styled.div`
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  background-color: var(--pale-grey);
+  min-height: 0;
+  position: relative;
+  section {
+    display: flex;
+    flex-direction: column-reverse;
+    padding: 10px 0;
+  }
+
+  .upload-img-list {
+    li {
+      img {
+        width: 200px;
+        height: 200px;
+        border-radius: 12px;
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+      }
+    }
+  }
+`;
+
+export const ChatListArea = styled.div`
+  flex: 1;
+  display: flex;
+  height: 100%;
+  overflow: hidden;
+  flex-flow: column nowrap;
+`;
+
 export const Util = styled.div`
   font-size: 24px;
   position: absolute;
@@ -11,7 +44,8 @@ export const Util = styled.div`
   -webkit-align-items: center;
   align-items: center;
 
-  .btn-upload {
+  .btn-upload,
+  .btn-close {
     display: inline-block;
     vertical-align: top;
     border: 0;

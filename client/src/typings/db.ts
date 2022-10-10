@@ -13,6 +13,7 @@ export interface IChatData {
   content: string;
   name: string;
   createdAt: string;
+  isFile: boolean;
 }
 
 export interface IImageData {

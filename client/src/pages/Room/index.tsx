@@ -6,11 +6,10 @@ import ChatInput from '../../components/ChatInput';
 import { useParams } from 'react-router';
 import makeSection from '../../utils/makeSection';
 import axios from 'axios';
-import Loading from '../../components/Loading';
-import Progress from '../../components/Progress';
+
 import PreviewImage from '../../components/PreviewImage';
 import { Header } from '../../pages/List/styles';
-import { Util } from './styles';
+import { ChatBox, ChatListArea, Util } from './styles';
 import { ReactComponent as Back } from '../../assets/img-back.svg';
 import { ReactComponent as Upload } from '../../assets/img-upload.svg';
 import { ReactComponent as Search } from '../../assets/img-search.svg';
@@ -24,9 +23,7 @@ const Room = ({ socket }: { socket: any }) => {
   const lastMessageRef = useRef<null | HTMLDivElement>(null);
 
   const [images, setImages] = useState<string[]>([]);
-  const [sendImages, setSendImages] = useState<string[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [widthNumber, setWidth] = useState(0);
+
   const [imageMenu, setImageMenu] = useState(false);
 
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -87,39 +84,6 @@ const Room = ({ socket }: { socket: any }) => {
     }
   };
 
-  const onAddImage = (e: { target: { src: string } }) => {
-    const file = e.target.src;
-    const timer = 2000;
-    const intervalNum = 100;
-    const maxWidth = 100;
-    const calc = maxWidth / (timer / intervalNum);
-    let init = 0;
-
-    axios
-      .post(`/api/room/images/${room_id}`, {
-        id: Math.random(),
-        imageUrl: file,
-      })
-      .then((response) => {
-        setSendImages([...sendImages, file]);
-
-        let interval = setInterval(() => {
-          init = init + calc;
-          setWidth(init);
-        }, intervalNum);
-
-        //loading 인터렉션 확인용 딜레이추가
-        setTimeout(() => {
-          console.log(response.data);
-          setLoading(false);
-          clearInterval(interval);
-        }, 2000);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
-
   if (!chatData || !userData) {
     return null;
   }
@@ -143,7 +107,7 @@ const Room = ({ socket }: { socket: any }) => {
                   setImageMenu(false);
                 }}
               >
-                이미지 닫기
+                <Upload />
               </button>
             ) : (
               <>
@@ -161,29 +125,20 @@ const Room = ({ socket }: { socket: any }) => {
               </>
             )}
           </div>
-          {imageMenu ? <PreviewImage images={images} onAddImage={onAddImage} /> : null}
           <Link to="#none" className="btn-search">
             <Search />
           </Link>
         </Util>
+        {imageMenu ? <PreviewImage images={images} socket={socket} room_id={room_id} /> : null}
       </Header>
 
-      <div className="chat-box">
-        <div className="chat-list-area">
+      <ChatBox>
+        <ChatListArea>
           <ChatList messages={chatSections} lastMessageRef={lastMessageRef} />
-        </div>
-
-        {sendImages &&
-          sendImages?.map((file: any, index: number) => (
-            <li key={index}>
-              {loading ? <Loading /> : null}
-              <img src={file} alt="preview-img" />
-              {loading ? <Progress widthNumber={widthNumber} /> : null}
-            </li>
-          ))}
+        </ChatListArea>
 
         <ChatInput socket={socket} />
-      </div>
+      </ChatBox>
     </div>
   );
 };

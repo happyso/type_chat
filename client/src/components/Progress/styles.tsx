@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-export const Progress = styled.div`
+export const ProgressBar = styled.div`
   height: 20px;
   margin-bottom: 20px;
   overflow: hidden;

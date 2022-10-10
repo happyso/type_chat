@@ -4,7 +4,6 @@ import { ChatFooter } from './styles';
 
 const ChatInput = ({ socket }: any) => {
   const [message, setMessage] = useState('');
-  const handleTyping = () => socket.emit('typing', `${localStorage.getItem('userName')} is typing`);
 
   const handleSendMessage = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
@@ -16,6 +15,7 @@ const ChatInput = ({ socket }: any) => {
           content: message,
           name: localStorage.getItem('userName'),
           createdAt: new Date(),
+          isFile: false,
         });
       }
       setMessage('');
@@ -31,7 +31,6 @@ const ChatInput = ({ socket }: any) => {
           className="message"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          onKeyDown={handleTyping}
         />
         <button className="btn-send">
           <Send />

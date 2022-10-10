@@ -168,8 +168,8 @@ const Room = ({ socket }: { socket: any }) => {
         </Util>
       </Header>
 
-      <div className="chatArea">
-        <div className="chatListArea">
+      <div className="chat-box">
+        <div className="chat-list-area">
           <ChatList messages={chatSections} lastMessageRef={lastMessageRef} />
         </div>
 

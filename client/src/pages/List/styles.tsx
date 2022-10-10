@@ -51,7 +51,6 @@ export const Header = styled.div`
 export const RoomList = styled.div`
   padding: 10px 0 0;
   font-size: 13px;
-  font-weight: 500;
   color: var(--cool-grey);
 
   a {
@@ -92,7 +91,6 @@ export const RoomList = styled.div`
       right: 0;
       top: 0;
       font-size: 11px;
-      font-weight: 500;
       letter-spacing: normal;
       text-align: right;
       color: var(--charcoal-grey-two);

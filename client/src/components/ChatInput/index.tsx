@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { ReactComponent as Send } from '../../assets/img-send.svg';
+import { ChatFooter } from './styles';
 
 const ChatInput = ({ socket }: any) => {
   const [message, setMessage] = useState('');
@@ -22,11 +23,11 @@ const ChatInput = ({ socket }: any) => {
     [socket, message],
   );
   return (
-    <div className="chat-footer">
+    <ChatFooter>
       <form className="form" onSubmit={handleSendMessage}>
         <input
           type="text"
-          placeholder="Write message"
+          placeholder="메시지를 입력하세요.."
           className="message"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
@@ -36,7 +37,7 @@ const ChatInput = ({ socket }: any) => {
           <Send />
         </button>
       </form>
-    </div>
+    </ChatFooter>
   );
 };
 

@@ -2,7 +2,7 @@ import React, { FC, LegacyRef } from 'react';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 import { IChatData } from '@typings/db';
-
+import { MonthLabel, MessageChats, DateNumber } from './styles';
 interface Props {
   messages: { [key: string]: IChatData[] };
   lastMessageRef: LegacyRef<HTMLDivElement> | undefined;
@@ -10,7 +10,7 @@ interface Props {
 const ChatList: FC<Props> = ({ messages, lastMessageRef }) => {
   return (
     <>
-      <div className="chatScroll">
+      <div className="chat-scroll">
         <div className="inner">
           {Object.entries(messages).map(([date, chats]) => {
             let senderDisplay = true;
@@ -34,12 +34,12 @@ const ChatList: FC<Props> = ({ messages, lastMessageRef }) => {
                         receiverTime = itemTime;
                       }
                       return (
-                        <div className="message__chats" key={index}>
-                          <div className="message__sender">
+                        <MessageChats key={index} className="message-sender">
+                          <div className="message">
                             <p>{message.content}</p>
                           </div>
-                          <span>{receiverDisplay ? <span>{receiverTime}</span> : null}</span>
-                        </div>
+                          <DateNumber>{receiverDisplay ? <span>{receiverTime}</span> : null}</DateNumber>
+                        </MessageChats>
                       );
                     } else {
                       if (senderTime) {
@@ -53,17 +53,21 @@ const ChatList: FC<Props> = ({ messages, lastMessageRef }) => {
                         senderTime = itemTime;
                       }
                       return (
-                        <div className="message__chats" key={index}>
-                          <div className="message__recipient">
+                        <MessageChats key={index} className="message-recipient">
+                          <div className="message">
                             <p>{message.content}</p>
                           </div>
-                          <span>{senderDisplay ? <span>{senderTime}</span> : null}</span>
-                        </div>
+                          <DateNumber>{senderDisplay ? <span>{senderTime}</span> : null}</DateNumber>
+                        </MessageChats>
                       );
                     }
                   })}
                 <div>
-                  <button>{date}</button>
+                  <MonthLabel>
+                    <strong>
+                      <span>{date}</span>
+                    </strong>
+                  </MonthLabel>
                 </div>
               </section>
             );

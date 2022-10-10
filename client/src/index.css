@@ -4,7 +4,8 @@
 }
 html {
   font-size: 10px;
-  line-height: 15px
+  line-height: 15px;
+  font-weight: 500;
 }
 
 /* HTML5 display-role reset for older browsers */
@@ -52,7 +53,7 @@ button,input {
   
 }
 
-.chatArea{
+.chat-box{
   display: flex;
   flex: 1;
   flex-direction: column;
@@ -61,7 +62,7 @@ button,input {
   position: relative;
 }
 
-.chatListArea{
+.chat-list-area{
   flex:1;
   display: flex;
   height:100%;
@@ -70,7 +71,7 @@ button,input {
 }
 
 
-.chatScroll { 
+.chat-scroll { 
   flex: 1 1;
     display: flex;
     flex-direction: column; 
@@ -80,7 +81,7 @@ button,input {
 
 }
 
-.chatScroll .inner{ 
+.chat-scroll .inner{ 
   display: flex;
     flex-direction: column-reverse; 
     height: auto;
@@ -88,17 +89,11 @@ button,input {
     overflow-y: scroll;
 }
 
-.chatArea section{
+.chat-box section{
   display: flex;;
   flex-direction: column-reverse;
+  padding:  10px 0;
   
-}
-.chat-footer {
-  padding: 10px;
-  background-color: #f9f5eb;
-  display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
 }
 
 
@@ -106,17 +101,7 @@ button,input {
   padding: 10px;
   width: 50%;
 }
-.home__cta {
-  width: 200px;
-  padding: 10px;
-  font-size: 16px;
-  cursor: pointer;
-  background-color: #607eaa;
-  color: #f9f5eb;
-  outline: none;
-  border: none;
-  border-radius: 5px;
-}
+
 .chat {
   width: 100%;
   height: 100vh;
@@ -184,14 +169,7 @@ button,input {
   align-items: center;
   justify-content: space-between;
 }
-.message {
-  width: 80%;
-  height: 100%;
-  border-radius: 10px;
-  border: 1px solid #ddd;
-  outline: none;
-  padding: 15px;
-}
+
 .btn-send {
   width: 50px;
   height: 50px;
@@ -203,22 +181,9 @@ button,input {
   -webkit-appearance: none;
 }
 
-.message__recipient {
-  background-color: #f5ccc2;
-  width: 300px;
-  padding: 10px;
-  border-radius: 10px;
-  font-size: 15px;
-}
-.message__sender {
-  background-color: rgb(194, 243, 194);
-  max-width: 300px;
-  padding: 10px;
-  border-radius: 10px;
-  margin-left: auto;
-  font-size: 15px;
-}
-.message__chats > p {
+
+
+.message-chats > p {
   font-size: 13px;
 }
 .sender__name {

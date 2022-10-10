@@ -23,6 +23,23 @@ export const ChatBox = styled.div`
       }
     }
   }
+  .beforePostImage {
+    margin: 10px 16px 10px;
+
+    text-align: right;
+    .img-box {
+      display: inline-block;
+      width: 200px;
+      height: 200px;
+      padding: 0 0 12px;
+      position: relative;
+    }
+    img {
+      max-width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+    }
+  }
 `;
 
 export const ChatListArea = styled.div`

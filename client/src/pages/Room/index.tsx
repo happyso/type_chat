@@ -8,6 +8,8 @@ import makeSection from '../../utils/makeSection';
 import axios from 'axios';
 
 import PreviewImage from '../../components/PreviewImage';
+import Progress from '../../components/Progress';
+import Loading from '../../components/Loading';
 import { Header } from '../../pages/List/styles';
 import { ChatBox, ChatListArea, Util } from './styles';
 import { ReactComponent as Back } from '../../assets/img-back.svg';
@@ -24,6 +26,9 @@ const Room = ({ socket }: { socket: any }) => {
 
   const [images, setImages] = useState<string[]>([]);
 
+  const [loading, setLoading] = useState(false);
+  const [loadImage, setLoadImage] = useState('');
+  const [widthNumber, setWidth] = useState(0);
   const [imageMenu, setImageMenu] = useState(false);
 
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -84,6 +89,47 @@ const Room = ({ socket }: { socket: any }) => {
     }
   };
 
+  const onAddImage = (e: any) => {
+    const target = e.target as HTMLImageElement;
+    const file = target.src;
+    if (loading) return null;
+    axios
+      .post(`/api/room/images/${room_id}`, {
+        id: Math.random(),
+        imageUrl: file,
+      })
+
+      .then((response) => {
+        console.log(response.data);
+        const timer = 1000;
+        const intervalNum = 100;
+        const maxWidth = 100;
+        const calc = maxWidth / (timer / intervalNum);
+        let init = 0;
+
+        setLoading(true);
+        setLoadImage(file);
+        let interval = setInterval(() => {
+          init = init + calc;
+          setWidth(init);
+        }, intervalNum);
+        setTimeout(() => {
+          setLoading(false);
+          clearInterval(interval);
+          socket.emit('message', {
+            id: `${socket.id}${Math.random()}`,
+            content: file,
+            name: localStorage.getItem('userName'),
+            createdAt: new Date(),
+            isFile: true,
+          });
+        }, timer);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
   if (!chatData || !userData) {
     return null;
   }
@@ -129,13 +175,23 @@ const Room = ({ socket }: { socket: any }) => {
             <Search />
           </Link>
         </Util>
-        {imageMenu ? <PreviewImage images={images} socket={socket} room_id={room_id} /> : null}
+        {imageMenu ? <PreviewImage images={images} onAddImage={onAddImage} /> : null}
       </Header>
 
       <ChatBox>
         <ChatListArea>
           <ChatList messages={chatSections} lastMessageRef={lastMessageRef} />
         </ChatListArea>
+
+        {loading ? (
+          <div className="beforePostImage">
+            <div className="img-box">
+              <Loading />
+              <img src={loadImage} alt="preview-img" />
+              <Progress widthNumber={widthNumber} />
+            </div>
+          </div>
+        ) : null}
 
         <ChatInput socket={socket} />
       </ChatBox>

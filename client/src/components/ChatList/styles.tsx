@@ -77,6 +77,9 @@ export const MessageChats = styled.div`
     font-size: 14px;
     font-weight: 600;
     letter-spacing: -0.1px;
+    img {
+      max-width: 200px;
+    }
   }
 `;
 

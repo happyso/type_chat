@@ -1,4 +1,4 @@
-import { IChatData } from '@typings/db';
+import { IChatData } from '../typings/db';
 import dayjs from 'dayjs';
 dayjs.locale('ko');
 export default function makeSection<T extends IChatData>(chatList: T[]) {

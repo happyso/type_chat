@@ -3,34 +3,10 @@
 .transition-group {
   position: relative;
 }
-
-
-.fade-enter{
-  opacity: 1;
-  border:1px solid red;
-  transition: all 0.5s ease-in;
+.transition-group .container{
+  position: absolute;
+  left:0;top:0;bottom:0;right:0;
 }
-.fade-enter-active {
-  opacity: 1;
-  border:1px solid red;
-  transition: all 0.5s ease-in;
-}
-.fade-exit {
-  opacity: 1;
-  border:1px solid blue;
-  transition: all 0.5s ease-in;
-}
-.fade-exit-active {
-  opacity: 1;
-  border:1px solid blue;
-  transition: all 0.5s ease-in;
-}
-
-
-
-
-/*
-
 
 .fade-enter .fade-list .chat-desc{
   opacity: 1;
@@ -121,4 +97,3 @@
 }
 
 
-*/

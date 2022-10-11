@@ -23,7 +23,7 @@ const App = () => {
 
   return (
     <TransitionGroup className="transition-group">
-      <CSSTransition key={location.pathname} classNames="fade" timeout={500} unmountOnExit appear>
+      <CSSTransition exact key={location.pathname} classNames="fade" timeout={500}>
         <Routes location={location}>
           <Route path="/" element={<Navigate replace to="/list" />} />
           <Route path="/list" element={<List />} />

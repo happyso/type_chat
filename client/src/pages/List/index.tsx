@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { IChatList } from '@typings/db';
+import { IChatList } from '../../typings/db';
 import axios from 'axios';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';

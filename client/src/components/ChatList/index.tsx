@@ -2,7 +2,7 @@ import React, { FC, LegacyRef } from 'react';
 import dayjs from 'dayjs';
 
 import 'dayjs/locale/ko';
-import { IChatData } from '@typings/db';
+import { IChatData } from '../../typings/db';
 import { MonthLabel, MessageChats, DateNumber, ChatScroll } from './styles';
 interface Props {
   messages: { [key: string]: IChatData[] };

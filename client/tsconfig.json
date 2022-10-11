@@ -17,15 +17,6 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "paths": {
-      "@hooks/*": ["./src/hooks/*"],
-      "@components/*": ["./src/components/*"],
-      "@pages/*": ["./src/pages/*"],
-      "@room/*": ["./src/room/*"],
-      "@utils/*": ["./src/utils/*"],
-      "@typings/*": ["./src/typings/*"],
-      "@assets/*": ["./src/assets/*"]
-    }
   },
   "ts-node": {
     "compilerOptions": {

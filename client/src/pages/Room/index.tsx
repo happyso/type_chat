@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { IChatData } from '@typings/db';
+import { IChatData } from '../../typings/db';
 import ChatList from '../../components/ChatList';
 import ChatInput from '../../components/ChatInput';
 import { useParams } from 'react-router';
@@ -138,7 +138,7 @@ const Room = ({ socket }: { socket: any }) => {
   const chatSections = makeSection(combineData ? combineData.reverse() : []);
 
   return (
-    <div className="container">
+    <div className="container" id="Room">
       <Header>
         <h1>{userData}</h1>
         <Link to="/list" className="btn-back">

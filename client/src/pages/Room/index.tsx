@@ -17,7 +17,7 @@ import { ReactComponent as Upload } from '../../assets/img-upload.svg';
 import { ReactComponent as Search } from '../../assets/img-search.svg';
 
 const Room = ({ socket }: { socket: any }) => {
-  const { room_id } = useParams();
+  const { roomId } = useParams();
   const [chatData, setChatData] = useState<IChatData[]>([]);
   const [userData, setUserData] = useState('');
 
@@ -40,25 +40,25 @@ const Room = ({ socket }: { socket: any }) => {
   }, []);
   useEffect(() => {
     axios
-      .get(`/api/users/${room_id}`, { withCredentials: true })
+      .get(`/api/users/${roomId}`, { withCredentials: true })
       .then((response) => {
         setUserData(response.data.nickname);
       })
       .catch((error) => {
         console.log(`Something Wrong: ${error}`);
       });
-  }, [room_id]);
+  }, [roomId]);
 
   useEffect(() => {
     axios
-      .get(`/api/room/${room_id}`, { withCredentials: true })
+      .get(`/api/room/${roomId}`, { withCredentials: true })
       .then((response) => {
         setChatData(response.data);
       })
       .catch((error) => {
         console.log(`Something Wrong: ${error}`);
       });
-  }, [room_id]);
+  }, [roomId]);
 
   useEffect(() => {
     socket.on('messageResponse', (data: any) => setMessages([...messages, data]));
@@ -94,7 +94,7 @@ const Room = ({ socket }: { socket: any }) => {
     const file = target.src;
     if (loading) return null;
     axios
-      .post(`/api/room/images/${room_id}`, {
+      .post(`/api/room/images/${roomId}`, {
         id: Math.random(),
         imageUrl: file,
       })
@@ -200,17 +200,3 @@ const Room = ({ socket }: { socket: any }) => {
 };
 
 export default Room;
-
-/*
-feat : 새로운 기능 추가, 기존의 기능을 요구 사항에 맞추어 수정
-fix : 기능에 대한 버그 수정
-build : 빌드 관련 수정
-chore : 패키지 매니저 수정, 그 외 기타 수정 ex) .gitignore
-ci : CI 관련 설정 수정
-docs : 문서(주석) 수정
-style : 코드 스타일, 포맷팅에 대한 수정
-refactor : 기능의 변화가 아닌 코드 리팩터링 ex) 변수 이름 변경
-test : 테스트 코드 추가/수정
-release : 버전 릴리즈
-Subject
-*/

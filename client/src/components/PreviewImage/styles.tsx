@@ -2,17 +2,10 @@ import styled from '@emotion/styled';
 
 export const PreviewList = styled.ul`
   height: 46px;
-  padding: 11px;
-
+  padding: 11px 0 1px;
   overflow-x: auto;
   white-space: nowrap;
-
-  position: absolute;
-  left: 0;
-  top: 44px;
-  right: 0;
   z-index: 1;
-
   background-color: var(--point-color);
 
   text-align: left;

@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { IChatList } from '@typings/db';
 import axios from 'axios';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 import { ReactComponent as Menu } from '../../assets/img-menu.svg';
 import { ReactComponent as Mypage } from '../../assets/img-mypage.svg';
-
 import { Header, RoomList } from './styles';
 dayjs.locale('ko');
 
@@ -35,7 +34,7 @@ const List = () => {
   }, []);
 
   return (
-    <>
+    <div className="container">
       <Header>
         <h1>채팅</h1>
         <button className="btn-menu">
@@ -47,7 +46,7 @@ const List = () => {
       </Header>
       <RoomList>
         {listData?.map((chatItem: IChatList) => (
-          <NavLink key={chatItem.id} to={`/room/${chatItem.SenderId}`}>
+          <Link className="fade-list" key={chatItem.id} to={`/room/${chatItem.SenderId}`}>
             <div className="chat-img">
               <img src={chatItem.imageUrls} alt={chatItem.SenderId} />
             </div>
@@ -57,10 +56,10 @@ const List = () => {
               <span className="date">{getDate(chatItem.createdAt)}</span>
               {chatItem.unreadChat && <span className="unreadCount">{chatItem.unreadChat}</span>}
             </div>
-          </NavLink>
+          </Link>
         ))}
       </RoomList>
-    </>
+    </div>
   );
 };
 

@@ -126,7 +126,7 @@ export const handlers = [
   }),
 
   // 추가
-  rest.post('/api/room/:room_id', async (req, res, ctx) => {
+  rest.post('/api/room/:roomId', async (req, res, ctx) => {
     const { username } = await req.json();
     return res(
       ctx.json({

@@ -50,6 +50,7 @@ export const MessageChats = styled.div`
   text-align: center;
   display: flex;
   align-items: flex-end;
+  overflow: hidden;
 
   &.message-recipient {
     margin-right: auto;

@@ -1,33 +1,124 @@
-.App {
-  text-align: center;
-}
-
-body {
-  overflow: hidden;
-}
+@charset "UTF-8";
 
 .transition-group {
   position: relative;
 }
 
-.fade-enter {
-  opacity: 0;
-  transform: translateX(100%) rotateZ(45deg);
-}
 
+.fade-enter{
+  opacity: 1;
+  border:1px solid red;
+  transition: all 0.5s ease-in;
+}
 .fade-enter-active {
   opacity: 1;
-  transform: translateX(-50%) rotateZ(0);
-  transition: all 1s ease-in;
+  border:1px solid red;
+  transition: all 0.5s ease-in;
 }
-
 .fade-exit {
   opacity: 1;
-  transform: translateX(-50%) rotateZ(0);
+  border:1px solid blue;
+  transition: all 0.5s ease-in;
+}
+.fade-exit-active {
+  opacity: 1;
+  border:1px solid blue;
+  transition: all 0.5s ease-in;
 }
 
-.fade-exit-active {
-  opacity: 0;
-  transform: translateX(-100%) rotateZ(-45deg);
-  transition: all 1s ease-in;
+
+
+
+/*
+
+
+.fade-enter .fade-list .chat-desc{
+  opacity: 1;
+  transform: translateX(0) rotateZ(0);
 }
+.fade-enter .fade-list .chat-img {
+  opacity: 1;
+  transform: translateX(0) rotateZ(0);
+}
+.fade-enter .fade-list .chat-desc{
+  opacity: 1;
+
+  transform: translateX(0) rotateZ(0);
+}
+.fade-enter .btn-mypage {
+  opacity: 1;
+  transform: translateX(0) rotateZ(0);
+}
+
+
+
+
+
+
+
+.fade-enter-active .fade-list .chat-desc{
+  opacity: 1;
+  transform: translateX(-10%) rotateZ(0);
+  transition: all 0.3s ease-in;
+}
+.fade-enter-active .chat-img {
+  opacity: 1;
+  transform: translateX(-20%) rotateZ(0);
+  transition: all 0.3s ease-in;
+  transition-delay: 0.1s;
+}
+.fade-enter-active .btn-mypage {
+  opacity: 1;
+  transform: translateX(-20%) rotateZ(0);
+  transition: all 0.3s ease-in;
+}
+
+
+
+.fade-exit-active .fade-list .chat-desc{
+  opacity: 0;
+  transform: translateX(-10%) rotateZ(0);
+  transition: all 0.3s ease-in;
+}
+.fade-exit-active .chat-img {
+  opacity: 0;
+  transform: translateX(-20%) rotateZ(0);
+  transition: all 0.3s ease-in;
+}
+.fade-exit-active .btn-mypage{
+  opacity: 0;
+  transform: translateX(-20%) rotateZ(0);
+  transition: all 0.3s ease-in;
+}
+.fade-exit-active .btn-menu{
+  opacity: 0;
+  transition: all 0.3s ease-in;
+}
+
+
+
+.fade-enter .message-sender{
+  opacity: 1;
+  transform: translateX(0) rotateZ(0);
+  transition: all 0.3s ease-in;
+}
+.fade-enter-active .message-sender {
+  opacity: 1;
+  transform: translateX(20%) rotateZ(0);
+  transition: all 0.3s ease-in;
+}
+
+.fade-exit .message-sender{
+  opacity: 0;
+  transform: translateX(20%) rotateZ(0);
+  transition: all 0.3s ease-in;
+}
+
+.fade-exit-active .message-sender{
+  opacity: 1;
+  transform: translateX(0) rotateZ(0);
+  transition: all 0.3s ease-in;
+}
+
+
+*/

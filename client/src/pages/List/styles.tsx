@@ -54,7 +54,15 @@ export const RoomList = styled.div`
   padding: 10px 0 0;
   font-size: 13px;
   color: var(--cool-grey);
-
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  background-color: #fff;
+  min-height: 0;
+  position: relative;
+  height: auto;
+  max-height: 100%;
+  overflow-y: scroll;
   a {
     display: flex;
     padding: 9px 16px;

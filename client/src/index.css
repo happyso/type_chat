@@ -3,6 +3,11 @@ body,button,dd,dl,dt,fieldset,form,h1,h2,h3,h4,h5,h6,input,legend,li,ol,p,select
   margin: 0;
   padding: 0
 }
+
+body {
+  overflow: hidden;
+}
+
 html {
   font-size: 10px;
   line-height: 15px;
@@ -47,9 +52,5 @@ button,input {
   flex: 1;
   flex-direction: column;
   position: relative;
-  
 }
 
-
-
-.previewList li img{width: 80px; height:auto;}
